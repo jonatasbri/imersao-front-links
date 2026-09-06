@@ -3,22 +3,313 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Netflix</title>
+    <title>Rapflix</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
 </head>
 <body>
     <main>
-        <h1>Quem está assistindo?</h1>
-        <div class="profiles">
-            <div class="profile">
-                <img src="/assets/perfil-1.jpg" alt="Perfil 1">
-                <p>Perfil 1</p>
-            </div>
-            <div class="profile">
-                <img src="/assets/perfil-2.jpg" alt="Perfil 2">
-                <p>Perfil 2</p>
+        <section id="loginView" class="login-view" aria-labelledby="loginTitle">
+            <p class="brand">RAPFLIX</p>
+            <h1 id="loginTitle">Entrar na sua conta</h1>
+            <p class="subtitle">Acesse seus perfis e continue ouvindo</p>
+            <form id="loginForm" class="login-form" novalidate>
+                <div class="field-group">
+                    <label for="loginUser">E-mail</label>
+                    <input id="loginUser" name="loginUser" type="email" autocomplete="email" inputmode="email" required>
+                </div>
+                <div class="field-group">
+                    <label for="loginPassword">Senha</label>
+                    <input id="loginPassword" name="loginPassword" type="password" autocomplete="current-password" minlength="6" required>
+                </div>
+                <button class="login-btn" type="submit">Entrar</button>
+                <p id="loginError" class="login-error" role="alert" hidden></p>
+            </form>
+        </section>
+
+        <section id="profileSelection" hidden>
+        <header>
+            <p class="brand">RAPFLIX</p>
+            <h1>Quem está assistindo</h1>
+            <p class="subtitle">Escolha seu perfil para continuar</p>
+        </header>
+        <section class="profiles">
+            <button class="profile is-empty" type="button" data-profile="1" aria-label="Adicionar perfil 1">
+                <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="Adicionar imagem ao Perfil 1">
+                <span class="add-btn" aria-hidden="true">+</span>
+                <span>Adicionar perfil</span>
+            </button>
+            <button class="profile is-empty" type="button" data-profile="2" aria-label="Adicionar perfil 2">
+                <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="Adicionar imagem ao Perfil 2">
+                <span class="add-btn" aria-hidden="true">+</span>
+                <span>Adicionar perfil</span>
+            </button>
+            <button class="profile is-empty" type="button" data-profile="3" aria-label="Adicionar perfil 3">
+                <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="Adicionar imagem ao Perfil 3">
+                <span class="add-btn" aria-hidden="true">+</span>
+                <span>Adicionar perfil</span>
+            </button>
+            <button class="profile is-empty" type="button" data-profile="4" aria-label="Adicionar perfil 4">
+                <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="Adicionar imagem ao Perfil 4">
+                <span class="add-btn" aria-hidden="true">+</span>
+                <span>Adicionar perfil</span>
+            </button>
+        </section>
+        <button id="logoutBtn" class="logout-btn" type="button">Sair</button>
+        </section>
+
+        <div id="imageModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
+            <div class="modal-content">
+                <button class="close" type="button" aria-label="Fechar janela">&times;</button>
+                <h2 id="modalTitle">Editar perfil</h2>
+                <form id="profileForm">
+                    <label for="profileName">Nome do perfil</label>
+                    <input id="profileName" name="profileName" type="text" maxlength="20" autocomplete="off" required>
+                    <p class="image-label">Escolha uma imagem</p>
+                    <div class="image-cards">
+                        <button class="card" type="button" data-src="assets/perfil 1.webp" aria-label="Escolher imagem 1"><img src="assets/perfil 1.webp" alt="Opção de imagem 1"></button>
+                        <button class="card" type="button" data-src="assets/perfil 2.avif" aria-label="Escolher imagem 2"><img src="assets/perfil 2.avif" alt="Opção de imagem 2"></button>
+                        <button class="card" type="button" data-src="assets/7ae57e54-8274-43a1-b4e9-6ebb41b84a8e.jpg" aria-label="Escolher imagem 3"><img src="assets/7ae57e54-8274-43a1-b4e9-6ebb41b84a8e.jpg" alt="Opção de imagem 3"></button>
+                        <button class="card" type="button" data-src="assets/perfil4.png" aria-label="Escolher imagem 4"><img src="assets/perfil4.png" alt="Opção de imagem 4"></button>
+                    </div>
+                    <div class="modal-actions">
+                        <button id="deleteBtn" class="delete-btn" type="button">Excluir perfil</button>
+                        <span id="deleteConfirmation" class="delete-confirmation" hidden>
+                            <button id="confirmDeleteBtn" class="confirm-delete-btn" type="button">Confirmar exclusão</button>
+                            <button id="cancelDeleteBtn" class="cancel-delete-btn" type="button">Cancelar</button>
+                        </span>
+                        <button id="cancelBtn" class="cancel-btn" type="button">Cancelar</button>
+                        <button class="save-btn" type="submit">Salvar perfil</button>
+                    </div>
+                    <p id="saveMessage" class="save-message" role="status" hidden>Perfil salvo com sucesso.</p>
+                </form>
             </div>
         </div>
+    
 
-    </main>
+    <script>
+        const loginView = document.getElementById('loginView');
+        const profileSelection = document.getElementById('profileSelection');
+        const loginForm = document.getElementById('loginForm');
+        const loginUser = document.getElementById('loginUser');
+        const loginPassword = document.getElementById('loginPassword');
+        const loginError = document.getElementById('loginError');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const modal = document.getElementById('imageModal');
+        const closeBtn = document.querySelector('.close');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const deleteBtn = document.getElementById('deleteBtn');
+        const profileForm = document.getElementById('profileForm');
+        const profileName = document.getElementById('profileName');
+        const deleteConfirmation = document.getElementById('deleteConfirmation');
+        const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+        const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
+        const saveMessage = document.getElementById('saveMessage');
+        const savedProfiles = JSON.parse(localStorage.getItem('rapflixProfiles') || '{}');
+        let currentProfile = null;
+        let selectedImage = null;
+        let lastFocusedProfile = null;
+        let closeTimer = null;
+
+        const showProfiles = () => {
+            loginView.hidden = true;
+            profileSelection.hidden = false;
+            profileSelection.querySelector('.profile')?.focus();
+        };
+
+        if (sessionStorage.getItem('rapflixAuthenticated') === 'true') {
+            showProfiles();
+        } else {
+            loginUser.focus();
+        }
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const user = loginUser.value.trim();
+            const password = loginPassword.value;
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+            loginError.hidden = true;
+            loginError.textContent = '';
+
+            if (!user || !password) {
+                loginError.textContent = 'Preencha e-mail e senha.';
+                loginError.hidden = false;
+                (!user ? loginUser : loginPassword).focus();
+                return;
+            }
+
+            if (!emailPattern.test(user)) {
+                loginError.textContent = 'Digite um e-mail válido, como nome@dominio.com.';
+                loginError.hidden = false;
+                loginUser.focus();
+                return;
+            }
+
+            if (password.length < 6) {
+                loginError.textContent = 'A senha deve ter pelo menos 6 caracteres.';
+                loginError.hidden = false;
+                loginPassword.focus();
+                return;
+            }
+
+            sessionStorage.setItem('rapflixAuthenticated', 'true');
+            showProfiles();
+        });
+
+        logoutBtn.addEventListener('click', () => {
+            sessionStorage.removeItem('rapflixAuthenticated');
+            closeModal();
+            profileSelection.hidden = true;
+            loginView.hidden = false;
+            loginForm.reset();
+            loginError.hidden = true;
+            loginUser.focus();
+        });
+
+        const closeModal = () => {
+            clearTimeout(closeTimer);
+            modal.classList.remove('is-open');
+            modal.setAttribute('aria-hidden', 'true');
+            currentProfile = null;
+            selectedImage = null;
+            saveMessage.hidden = true;
+            deleteBtn.hidden = false;
+            deleteConfirmation.hidden = true;
+            document.querySelectorAll('.card').forEach(card => card.classList.remove('selected'));
+            lastFocusedProfile?.focus();
+        };
+
+        const openModal = (profile) => {
+            currentProfile = profile;
+            lastFocusedProfile = profile;
+            const savedProfile = savedProfiles[profile.dataset.profile];
+            const label = profile.querySelector('span:last-child');
+
+            profileName.value = savedProfile?.name || (profile.classList.contains('is-empty') ? '' : label.textContent);
+            selectedImage = savedProfile?.image || null;
+            deleteBtn.hidden = !savedProfile;
+            deleteConfirmation.hidden = true;
+            document.querySelectorAll('.card').forEach(card => {
+                card.classList.toggle('selected', card.dataset.src === selectedImage);
+            });
+            saveMessage.hidden = true;
+            modal.classList.add('is-open');
+            modal.setAttribute('aria-hidden', 'false');
+            profileName.focus();
+        };
+
+        document.querySelectorAll('.profile').forEach(profile => {
+            const savedProfile = savedProfiles[profile.dataset.profile];
+            if (savedProfile) {
+                const image = profile.querySelector('img');
+                const label = profile.querySelector('span:last-child');
+                label.textContent = savedProfile.name;
+                if (savedProfile.image) {
+                    image.src = savedProfile.image;
+                    image.alt = `Selecionar ${savedProfile.name}`;
+                    profile.classList.remove('is-empty');
+                }
+                profile.setAttribute('aria-label', `Selecionar perfil ${savedProfile.name}`);
+            }
+
+            profile.addEventListener('click', (e) => {
+                if (profile.classList.contains('is-empty')) {
+                    e.preventDefault();
+                    openModal(profile);
+                    return;
+                }
+                sessionStorage.setItem('rapflixActiveProfile', profile.querySelector('span:last-child').textContent);
+                window.location.href = 'music.html';
+            });
+
+            profile.querySelector('.add-btn').addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                openModal(profile);
+            });
+        });
+
+        closeBtn.addEventListener('click', () => {
+            closeModal();
+        });
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('is-open')) {
+                closeModal();
+            }
+        });
+
+        cancelBtn.addEventListener('click', () => {
+            closeModal();
+        });
+
+        deleteBtn.addEventListener('click', () => {
+            if (!currentProfile) return;
+            deleteBtn.hidden = true;
+            deleteConfirmation.hidden = false;
+            confirmDeleteBtn.focus();
+        });
+
+        cancelDeleteBtn.addEventListener('click', () => {
+            deleteBtn.hidden = false;
+            deleteConfirmation.hidden = true;
+            deleteBtn.focus();
+        });
+
+        confirmDeleteBtn.addEventListener('click', () => {
+            if (!currentProfile) return;
+
+            const profileId = currentProfile.dataset.profile;
+            const image = currentProfile.querySelector('img');
+            const label = currentProfile.querySelector('span:last-child');
+            delete savedProfiles[profileId];
+            localStorage.setItem('rapflixProfiles', JSON.stringify(savedProfiles));
+            image.src = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';
+            image.alt = `Adicionar imagem ao Perfil ${profileId}`;
+            label.textContent = 'Adicionar perfil';
+            currentProfile.classList.add('is-empty');
+            closeModal();
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('click', () => {
+                selectedImage = card.dataset.src;
+                document.querySelectorAll('.card').forEach(item => item.classList.remove('selected'));
+                card.classList.add('selected');
+            });
+        });
+
+        profileForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = profileName.value.trim();
+            if (!currentProfile || !name) return;
+
+            const profileId = currentProfile.dataset.profile;
+            const image = currentProfile.querySelector('img');
+            const label = currentProfile.querySelector('span:last-child');
+            const imageToSave = selectedImage || savedProfiles[profileId]?.image || null;
+            if (imageToSave) {
+                image.src = imageToSave;
+                currentProfile.classList.remove('is-empty');
+            }
+            image.alt = `Selecionar ${name}`;
+            label.textContent = name;
+            currentProfile.setAttribute('aria-label', `Selecionar perfil ${name}`);
+            savedProfiles[profileId] = { name, image: imageToSave };
+            localStorage.setItem('rapflixProfiles', JSON.stringify(savedProfiles));
+            saveMessage.hidden = false;
+            closeTimer = setTimeout(closeModal, 900);
+        });
+    </script>
+    
+</main>
+    
 </body>
 </html>

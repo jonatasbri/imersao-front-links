@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapflix | Músicas</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+</head>
+<body class="music-page">
+    <main class="music-main">
+        <header class="music-header">
+            <div>
+                <a class="music-brand" href="index.html" aria-label="Voltar para a seleção de perfil">RAPFLIX</a>
+                <p class="music-welcome">Olá, <strong id="activeProfile">ouvinte</strong></p>
+            </div>
+            <div class="music-actions">
+                <a class="back-link" href="index.html">Trocar perfil</a>
+                <button id="logoutMusicBtn" class="music-logout" type="button">Sair</button>
+            </div>
+        </header>
+
+        <section class="music-hero" aria-labelledby="musicTitle">
+            <p class="music-eyebrow">Sua batida começa aqui</p>
+            <h1 id="musicTitle">Músicas de rap e hip-hop</h1>
+            <p>Encontre sua próxima faixa e ouça no seu ritmo.</p>
+        </section>
+
+        <section class="music-toolbar" aria-label="Filtros de músicas">
+            <label class="search-field">
+                <span>Buscar músicas</span>
+                <input id="musicSearch" type="search" placeholder="Buscar por artista ou faixa" autocomplete="off">
+            </label>
+            <div class="genre-filters" role="group" aria-label="Filtrar por estilo">
+                <button class="genre-btn is-active" type="button" data-genre="all">Todas</button>
+                <button class="genre-btn" type="button" data-genre="rap">Rap</button>
+                <button class="genre-btn" type="button" data-genre="hip-hop">Hip-hop</button>
+                <button class="genre-btn" type="button" data-genre="classicos">Clássicos</button>
+            </div>
+        </section>
+        <p id="musicStatus" class="search-status" role="status" hidden></p>
+
+        <section id="musicGrid" class="clip-grid" aria-live="polite">
+            <article class="clip-card" data-genre="rap" data-search="kendrick lamar humble rap">
+                <button class="clip-open" type="button" data-link="https://music.youtube.com/search?q=HUMBLE.%20Kendrick%20Lamar" aria-label="Ouvir HUMBLE., de Kendrick Lamar">
+                    <img src="https://i.ytimg.com/vi/tvTRZJ-4EyI/hqdefault.jpg" alt="Capa da música HUMBLE., de Kendrick Lamar">
+                    <span class="play-icon" aria-hidden="true">Ouvir</span>
+                </button>
+                <div class="clip-info"><span class="clip-tag">Rap</span><h2>HUMBLE.</h2><p>Kendrick Lamar</p></div>
+            </article>
+            <article class="clip-card" data-genre="hip-hop" data-search="travis scott sicko mode hip-hop">
+                <button class="clip-open" type="button" data-link="https://music.youtube.com/search?q=SICKO%20MODE%20Travis%20Scott" aria-label="Ouvir SICKO MODE, de Travis Scott">
+                    <img src="https://i.ytimg.com/vi/6ONRbXh7c4w/hqdefault.jpg" alt="Capa da música SICKO MODE, de Travis Scott">
+                    <span class="play-icon" aria-hidden="true">Ouvir</span>
+                </button>
+                <div class="clip-info"><span class="clip-tag">Hip-hop</span><h2>SICKO MODE</h2><p>Travis Scott</p></div>
+            </article>
+            <article class="clip-card" data-genre="classicos" data-search="eminem lose yourself classicos rap">
+                <button class="clip-open" type="button" data-link="https://music.youtube.com/search?q=Lose%20Yourself%20Eminem" aria-label="Ouvir Lose Yourself, de Eminem">
+                    <img src="https://i.ytimg.com/vi/xFYQQPAOz7Y/hqdefault.jpg" alt="Capa da música Lose Yourself, de Eminem">
+                    <span class="play-icon" aria-hidden="true">Ouvir</span>
+                </button>
+                <div class="clip-info"><span class="clip-tag">Clássico</span><h2>Lose Yourself</h2><p>Eminem</p></div>
+            </article>
+            <article class="clip-card" data-genre="classicos" data-search="dr dre snoop dogg still dre classicos hip-hop">
+                <button class="clip-open" type="button" data-link="https://music.youtube.com/search?q=Still%20D.R.E.%20Dr.%20Dre" aria-label="Ouvir Still D.R.E., de Dr. Dre e Snoop Dogg">
+                    <img src="https://i.ytimg.com/vi/_CL6n0FJZpk/hqdefault.jpg" alt="Capa da música Still D.R.E., de Dr. Dre e Snoop Dogg">
+                    <span class="play-icon" aria-hidden="true">Ouvir</span>
+                </button>
+                <div class="clip-info"><span class="clip-tag">Clássico</span><h2>Still D.R.E.</h2><p>Dr. Dre feat. Snoop Dogg</p></div>
+            </article>
+            <article class="clip-card" data-genre="hip-hop" data-search="tupac california love hip-hop classicos">
+                <button class="clip-open" type="button" data-link="https://music.youtube.com/search?q=California%20Love%202Pac" aria-label="Ouvir California Love, de 2Pac e Dr. Dre">
+                    <img src="https://i.ytimg.com/vi/5wBTdfAkqGU/hqdefault.jpg" alt="Capa da música California Love, de 2Pac e Dr. Dre">
+                    <span class="play-icon" aria-hidden="true">Ouvir</span>
+                </button>
+                <div class="clip-info"><span class="clip-tag">Hip-hop</span><h2>California Love</h2><p>2Pac feat. Dr. Dre</p></div>
+            </article>
+            <article class="clip-card" data-genre="rap" data-search="50 cent in da club rap">
+                <button class="clip-open" type="button" data-link="https://music.youtube.com/search?q=In%20Da%20Club%2050%20Cent" aria-label="Ouvir In Da Club, de 50 Cent">
+                    <img src="https://i.ytimg.com/vi/5qm8PH4xAss/hqdefault.jpg" alt="Capa da música In Da Club, de 50 Cent">
+                    <span class="play-icon" aria-hidden="true">Ouvir</span>
+                </button>
+                <div class="clip-info"><span class="clip-tag">Rap</span><h2>In Da Club</h2><p>50 Cent</p></div>
+            </article>
+        </section>
+        <p id="emptyMusic" class="empty-clips" hidden>Nenhuma música encontrada no catálogo do Rapflix. Pressione Enter para buscar no YouTube Music.</p>
+    </main>
+
+    <script>
+        const activeProfile = document.getElementById('activeProfile');
+        const musicSearch = document.getElementById('musicSearch');
+        const musicCards = [...document.querySelectorAll('.clip-card')];
+        const emptyMusic = document.getElementById('emptyMusic');
+        const musicStatus = document.getElementById('musicStatus');
+        let selectedGenre = 'all';
+
+        if (sessionStorage.getItem('rapflixAuthenticated') !== 'true') {
+            window.location.replace('index.html');
+        }
+
+        activeProfile.textContent = sessionStorage.getItem('rapflixActiveProfile') || 'ouvinte';
+
+        const filterMusic = () => {
+            const query = musicSearch.value.trim().toLowerCase();
+            let visibleCount = 0;
+            musicCards.forEach(card => {
+                const matchesGenre = selectedGenre === 'all' || card.dataset.genre === selectedGenre;
+                const matchesSearch = card.dataset.search.includes(query);
+                card.hidden = !(matchesGenre && matchesSearch);
+                if (matchesGenre && matchesSearch) visibleCount += 1;
+            });
+            emptyMusic.hidden = visibleCount > 0;
+            musicStatus.hidden = true;
+        };
+
+        document.querySelectorAll('.genre-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                selectedGenre = button.dataset.genre;
+                document.querySelectorAll('.genre-btn').forEach(item => item.classList.remove('is-active'));
+                button.classList.add('is-active');
+                filterMusic();
+            });
+        });
+
+        musicSearch.addEventListener('input', filterMusic);
+        musicSearch.addEventListener('keydown', event => {
+            if (event.key === 'Enter' && musicSearch.value.trim()) {
+                event.preventDefault();
+                window.location.href = `https://music.youtube.com/search?q=${encodeURIComponent(musicSearch.value.trim())}`;
+            }
+        });
+        document.querySelectorAll('.clip-open').forEach(button => {
+            button.addEventListener('click', () => window.open(button.dataset.link, '_blank', 'noopener,noreferrer'));
+        });
+
+        document.getElementById('logoutMusicBtn').addEventListener('click', () => {
+            sessionStorage.removeItem('rapflixAuthenticated');
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>
